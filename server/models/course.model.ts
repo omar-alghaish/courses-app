@@ -8,10 +8,10 @@ interface ICommnet extends Document {
 }
 
 interface IReview extends Document {
-    user: object,
+    user: IUser,
     rating: number,
     comment: string,
-    commentReplies: ICommnet[],
+    commentReplies?: ICommnet[],
 }
 
 interface ILink extends Document {
@@ -58,6 +58,7 @@ const reviewSchema = new Schema<IReview>({
         default: 0,
     },
     comment: String,
+    commentReplies: [Object]
 })
 
 const linkSchema = new Schema<ILink>({
@@ -135,7 +136,7 @@ const courseSchema = new Schema<ICourse>({
         default: 0,
     }
 
-})
+},{timestamps: true})
 
 const CourseModel: Model<ICourse> = mongoose.model("Course", courseSchema);
 

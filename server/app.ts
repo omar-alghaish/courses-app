@@ -5,6 +5,10 @@ import cors from "cors";
 import { errorMiddleware } from "./middlewares/error";
 import userRouter from "./routes/user.route";
 import courseRouter from "./routes/course.route";
+import orderRouter from "./routes/order.route";
+import notificationRoute from "./routes/notification.route";
+import analyticsRouter from "./routes/analytics.route";
+import layoutRouter from "./routes/layout.route";
 
 export const app = express();
 
@@ -22,9 +26,15 @@ app.use(
 );
 
 // routes
-app.use('/api/v1', userRouter)
-app.use('/api/v1', courseRouter)
-
+app.use(
+  "/api/v1",
+  userRouter,
+  courseRouter,
+  orderRouter,
+  notificationRoute,
+  analyticsRouter,
+  layoutRouter
+);
 
 // testing api
 app.get("/test", (req: Request, res: Response, next: NextFunction) => {
@@ -40,5 +50,4 @@ app.all("*", (req: Request, res: Response, next: NextFunction) => {
   next(err);
 });
 
-
-app.use(errorMiddleware)
+app.use(errorMiddleware);
